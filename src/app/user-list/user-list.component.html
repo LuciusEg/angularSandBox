@@ -1,0 +1,9 @@
+<ul>
+    <li *ngFor="let user of users">
+        {{user.name}}
+        <span style="cursor: pointer;" (click)="removeUser(user.name)">x</span>
+    </li>    
+</ul>
+
+<input type="text" #userName>
+<button (click)="addUser(userName.value); userName.value=''">Add user</button>

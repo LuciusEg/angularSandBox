@@ -1,0 +1,12 @@
+<app-item myColorDir #colorator="colory">
+    <div>ng-content div</div>
+    <section>section content</section>
+</app-item>
+
+<button (click)="colorator.setRandomColor()">Change color!</button>
+
+<div *delay="3"> Struct directive with delay </div>
+
+<user-list></user-list>
+
+<dynamic-item></dynamic-item>
