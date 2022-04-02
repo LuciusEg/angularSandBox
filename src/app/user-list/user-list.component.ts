@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -11,7 +12,11 @@ export class UserListComponent implements OnInit {
   public users: any;
   public usersT: any;
 
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService,
+              private route: ActivatedRoute ) {
+    this.route.queryParams.subscribe(params => console.log(params));
+    this.route.data.subscribe(data => console.log(data));
+  }
 
   ngOnInit(): void {
     this._userService.getAllUsers().subscribe(users=>this.users = users);

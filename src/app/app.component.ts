@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AngularSandBox';
+  userId = 3;
 
   constructor(_http: HttpClient){
     // _http.get('https://api.github.com/search/users').subscribe(result =>{

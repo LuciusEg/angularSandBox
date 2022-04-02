@@ -1,12 +1,9 @@
-<app-item myColorDir #colorator="colory">
-    <div>ng-content div</div>
-    <section>section content</section>
-</app-item>
+<a routerLink="" routerLinkActive="active-class" [routerLinkActiveOptions]="{exact: true}"> Home </a>
+<br/>
+<!-- exaple ways to pass parameters -->
+<a routerLink="user-list" routerLinkActive="active-class"> Users </a><br/>
+<a routerLink="user-list" [queryParams]="{q: 135}" routerLinkActive="active-class"> Users & query </a><br/>
+<a routerLink="user/2" routerLinkActive="active-class"> User - 2 </a><br/>
+<a [routerLink]="['user', userId]" routerLinkActive="active-class"> User - {{userId}} </a><br/>
 
-<button (click)="colorator.setRandomColor()">Change color!</button>
-
-<div *delay="3"> Struct directive with delay </div>
-
-<user-list></user-list>
-
-<dynamic-item></dynamic-item>
+<router-outlet></router-outlet>
