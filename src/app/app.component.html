@@ -6,4 +6,9 @@
 <a routerLink="user/2" routerLinkActive="active-class"> User - 2 </a><br/>
 <a [routerLink]="['user', userId]" routerLinkActive="active-class"> User - {{userId}} </a><br/>
 
+<a [routerLink]="[{ outlets: {popup: 'login' } }]" routerLinkActive="active-class"> Show popup </a>
+<a [routerLink]="[{ outlets: {popup: null } }]" routerLinkActive="active-class"> Hide popup </a><br/>
+
 <router-outlet></router-outlet>
+
+<router-outlet name="popup"></router-outlet>

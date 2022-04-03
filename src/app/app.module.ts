@@ -13,16 +13,29 @@ import { SomeInterceptor } from './services/Interceptors/some-interceptor.servic
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { UserComponent } from './user/user.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { UserResolveService } from './services/user-resolve.service';
+import { LoginComponent } from './login/login.component';
 
 const routes = [
   { path: '', component: MainComponent},
+  { path: 'login', component: LoginComponent, outlet: 'popup' },
   { path: 'user-list',
+    canActivate: [ AuthGuard ],
+    resolve: {
+      user: UserResolveService
+    },
     data: {
       title: 'Users',
       anotherParameter: 'Some thing'
     },
     component: UserListComponent },
-  { path: 'user/:userId', component: UserComponent},
+  { path: 'user/:userId', component: UserComponent, children: [
+    { path: 'profile', component: ProfileComponent},
+    { path: 'settings', component: SettingsComponent},
+  ]},
 ];
 
 @NgModule({
@@ -35,6 +48,7 @@ const routes = [
     UserListComponent,
     MainComponent,
     UserComponent,
+    LoginComponent,
   ],
   entryComponents: [ DynamicItemComponent ], //динамические компоненты
   imports: [
@@ -49,6 +63,8 @@ const routes = [
       useClass: SomeInterceptor,
       multi:true
     }, 
+    AuthGuard,
+    UserResolveService,
   ],
   bootstrap: [AppComponent]
 })

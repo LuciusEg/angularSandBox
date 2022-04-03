@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Event, NavigationStart } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -13,15 +13,24 @@ export class UserListComponent implements OnInit {
   public usersT: any;
 
   constructor(private _userService: UserService,
-              private route: ActivatedRoute ) {
-    this.route.queryParams.subscribe(params => console.log(params));
-    this.route.data.subscribe(data => console.log(data));
+              private _route: ActivatedRoute,
+              private _router: Router ) {
+    this._route.queryParams.subscribe(params => console.log(params));
+    this._route.data.subscribe(data => console.log(data));
+    this._route.data.subscribe(data => console.log(data['user']));
   }
 
   ngOnInit(): void {
     this._userService.getAllUsers().subscribe(users=>this.users = users);
     this.usersT = this._userService.getAllUsers()
       .subscribe(users => this.usersT,(err)=>console.log(err),() => this.compareDebugPoint());
+    
+    this._router.events.subscribe((e: Event) =>
+    {
+      if (e instanceof NavigationStart) {
+        console.log(e);        
+      }
+    })
   }
   
   compareDebugPoint(){
