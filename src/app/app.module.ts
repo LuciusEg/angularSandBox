@@ -19,6 +19,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { UserResolveService } from './services/user-resolve.service';
 import { LoginComponent } from './login/login.component';
 import { AppPreloadingStrategy } from './shared/app-preloading-strategy';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes = [
   { path: '', component: MainComponent},
@@ -63,12 +64,15 @@ const routes = [
     MainComponent,
     UserComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   entryComponents: [ DynamicItemComponent ], //динамические компоненты
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes, { preloadingStrategy: AppPreloadingStrategy }),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [ 
     UserService,
