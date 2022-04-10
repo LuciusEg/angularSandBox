@@ -29,8 +29,11 @@ const routes = [
   },
   { 
     path: 'admin', 
+    data: {
+      noPreload: false
+    },
     loadChildren: () => import ('./admin/admin.module')
-                        .then(m => m.AdminModule)
+                        .then(m => m.AdminModule),
   },
   { 
     path: 'user-list',
