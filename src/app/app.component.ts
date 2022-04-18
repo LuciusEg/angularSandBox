@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   }
 }
 
-
+// Можно вынести в класс валидаторов и использовать как статические
 function lenghtValidator(number: number) {
   return function (formControl:FormControl) {
     if (formControl.value.length < number) {

@@ -1,16 +1,18 @@
 <a routerLink="" routerLinkActive="active-class" [routerLinkActiveOptions]="{exact: true}"> Home </a>
-<br/>
-<a routerLink="admin" routerLinkActive="active-class"> Admin </a><br/>
+
+<a routerLink="admin" routerLinkActive="active-class"> Admin </a>
 
 <input [formControl]="someControl">
+
+<a routerLink="user-list" routerLinkActive="active-class"> Users </a>
 <!-- exaple ways to pass parameters -->
-<!-- <a routerLink="user-list" routerLinkActive="active-class"> Users </a><br/>
-<a routerLink="user-list" [queryParams]="{q: 135}" routerLinkActive="active-class"> Users & query </a><br/>
-<a routerLink="user/2" routerLinkActive="active-class"> User - 2 </a><br/>
-<a [routerLink]="['user', userId]" routerLinkActive="active-class"> User - {{userId}} </a><br/> -->
+<!-- 
+<a routerLink="user-list" [queryParams]="{q: 135}" routerLinkActive="active-class"> Users & query </a>
+<a routerLink="user/2" routerLinkActive="active-class"> User - 2 </a>
+<a [routerLink]="['user', userId]" routerLinkActive="active-class"> User - {{userId}} </a> -->
 
 <a [routerLink]="[{ outlets: {popup: 'login' } }]" routerLinkActive="active-class"> Show popup </a>
-<a [routerLink]="[{ outlets: {popup: null } }]" routerLinkActive="active-class"> Hide popup </a><br/>
+<a [routerLink]="[{ outlets: {popup: null } }]" routerLinkActive="active-class"> Hide popup </a>
 
 <router-outlet></router-outlet>
 

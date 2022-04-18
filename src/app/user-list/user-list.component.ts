@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, Event, NavigationStart } from '@angular/router';
 import { UserService } from '../services/user.service';
 
@@ -11,6 +12,10 @@ export class UserListComponent implements OnInit {
 
   public users: any;
   public usersT: any;
+  userForm: FormGroup= new FormGroup({
+    firstName: new FormControl(),
+    lastName: new FormControl()
+  });;
 
   constructor(private _userService: UserService,
               private _route: ActivatedRoute,
@@ -23,7 +28,9 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this._userService.getAllUsers().subscribe(users=>this.users = users);
     this.usersT = this._userService.getAllUsers()
-      .subscribe(users => this.usersT,(err)=>console.log(err),() => this.compareDebugPoint());
+      .subscribe(users => this.usersT,
+                (err)=>console.log(err),
+                () => this.compareDebugPoint());
     
     this._router.events.subscribe((e: Event) =>
     {
@@ -31,6 +38,8 @@ export class UserListComponent implements OnInit {
         console.log(e);        
       }
     })
+
+    this.userForm.valueChanges.subscribe(value => console.log(value));
   }
   
   compareDebugPoint(){
