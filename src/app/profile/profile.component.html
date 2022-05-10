@@ -1,1 +1,6 @@
-<p>profile works!</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <label>First Name <input formControlName="firstName"></label>
+    <label>Last Name <input formControlName="lastName"></label>
+    <p>Complete the form to enable button.</p>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+</form>

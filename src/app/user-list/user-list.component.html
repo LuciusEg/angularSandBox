@@ -1,14 +1,18 @@
-<fieldset [formGroup]="userForm">
-    <label>First Name <input formControlName="firstName"></label>
-    <label>Last Name <input formControlName="lastName"></label>
-</fieldset>
+<form [formGroup]="userListForm">
+    <ul formArrayName="usersFA">
+        <li *ngFor="let user of usersFa.controls; let i = index">
+            <label>User <input type="text" [formControlName]="i"></label>
+            <!-- <span style="cursor: pointer;" (click)="removeUser(user.name)">x</span> -->
+        </li>    
+    </ul>
+    <button (click)="addUser()">Add user</button>
+</form>
 
-<input type="text" #userName>
-<button (click)="addUser(userName.value); userName.value=''">Add user</button>
-
+<hr/>
 <ul>
     <li *ngFor="let user of users">
         {{user.name}}
         <span style="cursor: pointer;" (click)="removeUser(user.name)">x</span>
     </li>    
 </ul>
+<input type="text" #userName>

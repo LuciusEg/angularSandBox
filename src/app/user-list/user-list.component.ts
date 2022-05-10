@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, Event, NavigationStart } from '@angular/router';
 import { UserService } from '../services/user.service';
 
@@ -12,48 +12,50 @@ export class UserListComponent implements OnInit {
 
   public users: any;
   public usersT: any;
-  userForm: FormGroup= new FormGroup({
-    firstName: new FormControl(),
-    lastName: new FormControl()
-  });;
+
+  userListForm = this._formBuilder.group({
+    usersFA: this._formBuilder.array([['Alicse'], ['Bob'], ['John'] ])
+  });
+
+  get usersFa(){
+    return this.userListForm.get('usersFA') as FormArray;
+  }
+
 
   constructor(private _userService: UserService,
-              private _route: ActivatedRoute,
-              private _router: Router ) {
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _formBuilder: FormBuilder) {
     this._route.queryParams.subscribe(params => console.log(params));
     this._route.data.subscribe(data => console.log(data));
     this._route.data.subscribe(data => console.log(data['user']));
   }
 
   ngOnInit(): void {
-    this._userService.getAllUsers().subscribe(users=>this.users = users);
+    this._userService.getAllUsers().subscribe(users => this.users = users);
     this.usersT = this._userService.getAllUsers()
       .subscribe(users => this.usersT,
-                (err)=>console.log(err),
-                () => this.compareDebugPoint());
-    
-    this._router.events.subscribe((e: Event) =>
-    {
+        (err) => console.log(err),
+        () => this.compareDebugPoint());
+
+    this._router.events.subscribe((e: Event) => {
       if (e instanceof NavigationStart) {
-        console.log(e);        
+        console.info(e);
       }
     })
 
-    this.userForm.valueChanges.subscribe(value => console.log(value));
-  }
-  
-  compareDebugPoint(){
-    let a = 0;    
   }
 
-  removeUser(name: string){
+  compareDebugPoint() {
+    let a = 0;
+  }
+
+  removeUser(name: string) {
     this._userService.remove(name);
     this.users = this._userService.getAllUsers();
   }
 
-  addUser(name: string){
-    if(!name){return;}
-    this._userService.add(name);
-    this.users = this._userService.getAllUsers();
+  addUser() {
+    this.usersFa.push(this._formBuilder.control(''))
   }
 }
