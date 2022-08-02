@@ -14,6 +14,7 @@
 <a [routerLink]="[{ outlets: {popup: 'login' } }]" routerLinkActive="active-class"> Show popup </a>
 <a [routerLink]="[{ outlets: {popup: null } }]" routerLinkActive="active-class"> Hide popup </a>
 
+<button (click)="openDialog()"> ShowDIalog</button>
 <router-outlet></router-outlet>
 
 <router-outlet name="popup"></router-outlet>

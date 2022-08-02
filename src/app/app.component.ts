@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, Observable , of} from 'rxjs';
+import { MatDialog} from '@angular/material/dialog'
+import { DialogThingsComponent } from './dialog-things/dialog-things.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,8 @@ export class AppComponent implements OnInit {
   userId = 3;
   someControl = new FormControl('someText', [Validators.required, lenghtValidator(5)]);
 
-  constructor(_http: HttpClient){
+  constructor(_http: HttpClient,
+              public dialog: MatDialog){
     // _http.get('https://api.github.com/search/users').subscribe(result =>{
     //   console.log(result);
     // });
@@ -36,6 +39,10 @@ export class AppComponent implements OnInit {
       console.log(this.someControl.errors);
       console.log(status);
     });
+  }
+
+  openDialog(){
+    this.dialog.open(DialogThingsComponent)
   }
 }
 

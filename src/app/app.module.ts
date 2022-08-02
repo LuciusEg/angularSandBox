@@ -10,7 +10,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SomeInterceptor } from './services/Interceptors/some-interceptor.service';
-import { PreloadAllModules, PreloadingStrategy, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -20,9 +20,14 @@ import { UserResolveService } from './services/user-resolve.service';
 import { LoginComponent } from './login/login.component';
 import { AppPreloadingStrategy } from './shared/app-preloading-strategy';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DialogThingsComponent } from './dialog-things/dialog-things.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes = [
-  { path: '', component: MainComponent},
+  { 
+    path: '', component: MainComponent 
+  },
   { 
     path: 'login', 
     component: LoginComponent, 
@@ -47,9 +52,18 @@ const routes = [
       anotherParameter: 'Some thing'
     },
     component: UserListComponent },
-  { path: 'user/:userId', component: UserComponent, children: [
-  { path: 'profile', component: ProfileComponent},
-  { path: 'settings', component: SettingsComponent},
+  { 
+    path: 'user/:userId', 
+    component: UserComponent, 
+    children: [
+    { 
+      path: 'profile', 
+      component: ProfileComponent
+    },
+    { 
+      path: 'settings', 
+      component: SettingsComponent
+    },
   ]},
 ];
 
@@ -65,6 +79,7 @@ const routes = [
     UserComponent,
     LoginComponent,
     ProfileComponent,
+    DialogThingsComponent,
   ],
   entryComponents: [ DynamicItemComponent ], //динамические компоненты
   imports: [
@@ -73,6 +88,8 @@ const routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: AppPreloadingStrategy }),
     FormsModule,
     ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatDialogModule,
   ],
   providers: [ 
     UserService,
