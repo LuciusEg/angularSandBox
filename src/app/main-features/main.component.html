@@ -1,0 +1,28 @@
+<a routerLink="" routerLinkActive="active-class" [routerLinkActiveOptions]="{exact: true}"> Home </a>
+
+<a routerLink="admin" routerLinkActive="active-class"> Admin </a>
+
+<input [formControl]="someControl">
+
+<a routerLink="user-list" routerLinkActive="active-class"> Users </a>
+<!-- exaple ways to pass parameters -->
+<!-- 
+<a routerLink="user-list" [queryParams]="{q: 135}" routerLinkActive="active-class"> Users & query </a>
+<a routerLink="user/2" routerLinkActive="active-class"> User - 2 </a>
+<a [routerLink]="['user', userId]" routerLinkActive="active-class"> User - {{userId}} </a> -->
+
+
+<button (click)="openDialog()"> ShowDIalog</button>
+
+<app-item myColorDir #colorator="colory">
+    <div>ng-content div</div>
+    <section>section content</section>
+</app-item>
+
+<button (click)="colorator.setRandomColor()">Change color!</button>
+
+<div *delay="3"> Struct directive with delay </div>
+
+<dynamic-item></dynamic-item>
+
+<router-outlet></router-outlet>

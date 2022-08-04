@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, Event, NavigationStart } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'user-list',

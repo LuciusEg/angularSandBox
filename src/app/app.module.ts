@@ -1,95 +1,32 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgModule } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { ItemComponent } from './item/item.component';
-import { DelayDirective } from './shared/delay.directive';
-import { MyColorDirDirective } from './shared/my-color-dir.directive';
-import { DynamicItemComponent } from './dynamic-item/dynamic-item.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserService } from './services/user.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SomeInterceptor } from './services/Interceptors/some-interceptor.service';
-import { RouterModule } from '@angular/router';
-import { MainComponent } from './main/main.component';
-import { UserComponent } from './user/user.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component';
-import { AuthGuard } from './shared/guards/auth.guard';
-import { UserResolveService } from './services/user-resolve.service';
-import { LoginComponent } from './login/login.component';
 import { AppPreloadingStrategy } from './shared/app-preloading-strategy';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DialogThingsComponent } from './dialog-things/dialog-things.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-
-const routes = [
-  { 
-    path: '', component: MainComponent 
-  },
-  { 
-    path: 'login', 
-    component: LoginComponent, 
-    outlet: 'popup' 
-  },
-  { 
-    path: 'admin', 
-    data: {
-      noPreload: false
-    },
-    loadChildren: () => import ('./admin/admin.module')
-                        .then(m => m.AdminModule),
-  },
-  { 
-    path: 'user-list',
-    canActivate: [ AuthGuard ],
-    resolve: {
-      user: UserResolveService
-    },
-    data: {
-      title: 'Users',
-      anotherParameter: 'Some thing'
-    },
-    component: UserListComponent },
-  { 
-    path: 'user/:userId', 
-    component: UserComponent, 
-    children: [
-    { 
-      path: 'profile', 
-      component: ProfileComponent
-    },
-    { 
-      path: 'settings', 
-      component: SettingsComponent
-    },
-  ]},
-];
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AuthGuard } from './core/guards/auth.guard';
+import { DynamicItemComponent } from './main-features/dynamic-item/dynamic-item.component';
+import { SomeInterceptor } from './core/interceptors/some-interceptor.service';
+import { UserResolveService } from './core/services/user-resolve.service';
+import { UserService } from './core/services/user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemComponent,
-    MyColorDirDirective,
-    DelayDirective,
-    DynamicItemComponent,
-    UserListComponent,
-    MainComponent,
-    UserComponent,
-    LoginComponent,
-    ProfileComponent,
-    DialogThingsComponent,
   ],
   entryComponents: [ DynamicItemComponent ], //динамические компоненты
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes, { preloadingStrategy: AppPreloadingStrategy }),
     FormsModule,
-    ReactiveFormsModule,
+    HttpClientModule,
+    MatDialogModule,    
     NoopAnimationsModule,
-    MatDialogModule,
+    ReactiveFormsModule,
   ],
   providers: [ 
     UserService,
